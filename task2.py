@@ -19,22 +19,27 @@ from task1 import Stack
 если строка составлена неверно."""
 def balance(symbols):
     balance_list = ["(", "[", "{"]
-    for symbol in symbols:
-        if symbol in balance_list and len(symbols) % 2 == 0:
-            s.push(symbol)
-        else:
-            if s.is_empty():
-                return False
+    revers_list = [")", "]", "}"]
+    if len(symbols) % 2 != 0:
+        return False
+    else:
+        for symbol in symbols:
+            if symbol in balance_list:
+                s.push(symbol)
             else:
-                if reversed(symbol) == s.peek():
-                    s.pop()
+                if s.is_empty():
+                    return False
                 else:
-                    if symbol in s.peek():
+                    if balance_list[revers_list.index(symbol)] in s.peek() or symbol in s.peek():
                         s.pop()
+
+        if len(s.stack) > 0:
+            return False
 
 s = Stack()
 
 in_symbols = input("Ввод: ")
+
 if __name__ == '__main__':
     print("Несбалансированно") if balance(in_symbols) == False else print("Сбалансированно")
 
